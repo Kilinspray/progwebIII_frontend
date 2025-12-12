@@ -202,7 +202,7 @@ class _TransactionEditScreenState extends State<TransactionEditScreen> {
 
                   // Conta
                   DropdownButtonFormField<int>(
-                    initialValue: _contaId,
+                    value: _contaId,
                     decoration: const InputDecoration(
                       labelText: 'Conta',
                       prefixIcon: Icon(Icons.account_balance_wallet),
@@ -218,7 +218,7 @@ class _TransactionEditScreenState extends State<TransactionEditScreen> {
 
                   // Categoria
                   DropdownButtonFormField<int?>(
-                    initialValue: _categoriaId,
+                    value: _categoriaId,
                     decoration: const InputDecoration(
                       labelText: 'Categoria (opcional)',
                       prefixIcon: Icon(Icons.category),

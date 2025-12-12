@@ -280,7 +280,7 @@ class _TransferCreateScreenState extends State<TransferCreateScreen> {
 
                   // Conta Origem
                   DropdownButtonFormField<int>(
-                    initialValue: _contaOrigemId,
+                    value: _contaOrigemId,
                     decoration: const InputDecoration(
                       labelText: 'Conta de origem',
                       prefixIcon: Icon(Icons.logout, color: Colors.red),
@@ -331,7 +331,7 @@ class _TransferCreateScreenState extends State<TransferCreateScreen> {
 
                   // Conta Destino
                   DropdownButtonFormField<int>(
-                    initialValue: _contaDestinoId,
+                    value: _contaDestinoId,
                     decoration: const InputDecoration(
                       labelText: 'Conta de destino',
                       prefixIcon: Icon(Icons.login, color: Colors.green),

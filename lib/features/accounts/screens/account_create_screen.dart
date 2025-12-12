@@ -82,7 +82,7 @@ class _AccountCreateScreenState extends State<AccountCreateScreen> {
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<AccountType>(
-                    initialValue: _tipo,
+                    value: _tipo,
                     decoration: const InputDecoration(labelText: 'Tipo', prefixIcon: Icon(Icons.category)),
                     items: AccountType.values.map((t) => DropdownMenuItem(value: t, child: Text(t.apiValue))).toList(),
                     onChanged: (v) => setState(() => _tipo = v ?? AccountType.carteira),

@@ -251,7 +251,7 @@ class _TransactionCreateScreenState extends State<TransactionCreateScreen> {
 
                   // Conta
                   DropdownButtonFormField<int>(
-                    initialValue: _contaId,
+                    value: _contaId,
                     decoration: const InputDecoration(
                       labelText: 'Conta',
                       prefixIcon: Icon(Icons.account_balance_wallet),
@@ -267,7 +267,7 @@ class _TransactionCreateScreenState extends State<TransactionCreateScreen> {
 
                   // Categoria
                   DropdownButtonFormField<int?>(
-                    initialValue: _categoriaId,
+                    value: _categoriaId,
                     decoration: const InputDecoration(
                       labelText: 'Categoria (opcional)',
                       prefixIcon: Icon(Icons.category),

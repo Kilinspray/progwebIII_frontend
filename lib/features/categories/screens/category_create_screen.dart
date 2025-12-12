@@ -78,7 +78,7 @@ class _CategoryCreateScreenState extends State<CategoryCreateScreen> {
                   ),
                   const SizedBox(height: 16),
                   DropdownButtonFormField<CategoryType>(
-                    initialValue: _tipo,
+                    value: _tipo,
                     decoration: const InputDecoration(labelText: 'Tipo', prefixIcon: Icon(Icons.swap_vert)),
                     items: CategoryType.values.map((t) {
                       final isExpense = t == CategoryType.despesa;
