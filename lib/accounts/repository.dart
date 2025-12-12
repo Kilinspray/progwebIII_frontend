@@ -29,4 +29,10 @@ class AccountsRepository {
 	Future<void> delete(int id) async {
 		await api.delete('/accounts/$id');
 	}
+
+	// Método admin
+	Future<List<Account>> listAllAdmin() async {
+		final data = await api.get('/accounts/admin/all') as List<dynamic>;
+		return data.map((e) => Account.fromJson(e as Map<String, dynamic>)).toList();
+	}
 }

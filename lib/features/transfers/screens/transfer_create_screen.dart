@@ -229,9 +229,12 @@ class _TransferCreateScreenState extends State<TransferCreateScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Nova Transferência')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Card(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 450),
+            child: Card(
           color: Theme.of(context).cardColor,
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -267,8 +270,9 @@ class _TransferCreateScreenState extends State<TransferCreateScreen> {
                     validator: (v) {
                       if (v == null || v.isEmpty) return 'Valor é obrigatório';
                       if (double.tryParse(v) == null) return 'Valor inválido';
-                      if (double.parse(v) <= 0)
+                      if (double.parse(v) <= 0) {
                         return 'Valor deve ser maior que zero';
+                      }
                       return null;
                     },
                   ),
@@ -390,6 +394,8 @@ class _TransferCreateScreenState extends State<TransferCreateScreen> {
               ),
             ),
           ),
+        ),
+      ),
         ),
       ),
     );

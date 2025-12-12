@@ -8,6 +8,12 @@ import 'features/auth/screens/signup_screen.dart';
 import 'features/system/screens/main_menu_screen.dart';
 // Users
 import 'features/users/screens/users_list_screen.dart';
+// Profile
+import 'features/profile/screens/profile_screen.dart';
+// Admin
+import 'features/admin/screens/admin_menu_screen.dart';
+import 'features/admin/screens/admin_accounts_screen.dart';
+import 'features/admin/screens/admin_transfers_screen.dart';
 // Accounts
 import 'features/accounts/screens/accounts_list_screen.dart';
 import 'features/accounts/screens/account_create_screen.dart';
@@ -42,6 +48,12 @@ class App extends StatelessWidget {
         '/menu': (c) => const MainMenuScreen(),
         '/login': (c) => const LoginScreen(),
         '/signup': (c) => const SignupScreen(),
+        // Profile
+        '/profile': (c) => const ProfileScreen(),
+        // Admin
+        '/admin': (c) => const AdminMenuScreen(),
+        '/admin/accounts': (c) => const AdminAccountsScreen(),
+        '/admin/transfers': (c) => const AdminTransfersScreen(),
         // Users
         '/users': (c) => const UsersListScreen(),
         // Accounts

@@ -50,9 +50,12 @@ class _AccountCreateScreenState extends State<AccountCreateScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Nova Conta')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Card(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 450),
+            child: Card(
           color: Theme.of(context).cardColor,
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -111,6 +114,8 @@ class _AccountCreateScreenState extends State<AccountCreateScreen> {
               ),
             ),
           ),
+        ),
+      ),
         ),
       ),
     );

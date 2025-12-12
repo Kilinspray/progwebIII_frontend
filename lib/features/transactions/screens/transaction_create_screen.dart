@@ -119,9 +119,12 @@ class _TransactionCreateScreenState extends State<TransactionCreateScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Nova Transação')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Card(
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 450),
+            child: Card(
           color: Theme.of(context).cardColor,
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -306,6 +309,8 @@ class _TransactionCreateScreenState extends State<TransactionCreateScreen> {
               ),
             ),
           ),
+        ),
+      ),
         ),
       ),
     );

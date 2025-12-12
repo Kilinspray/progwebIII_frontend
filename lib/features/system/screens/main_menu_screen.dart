@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../../../core/api_client.dart';
@@ -7,6 +9,8 @@ import '../../../transactions/repository.dart';
 import '../../../transactions/model.dart';
 import '../../../transfers/repository.dart';
 import '../../../transfers/model.dart';
+import '../../../users/repository.dart';
+import '../../../users/model.dart';
 
 class MainMenuScreen extends StatefulWidget {
   const MainMenuScreen({super.key});
@@ -22,10 +26,13 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   List<Account> _accounts = [];
   List<Transaction> _transactions = [];
   List<Transfer> _transfers = [];
+  User? _currentUser;
 
   double _saldoTotal = 0;
   double _receitaTotal = 0;
   double _despesaTotal = 0;
+
+  bool get _isAdmin => _currentUser?.role.name.toLowerCase() == 'admin';
 
   @override
   void initState() {
@@ -40,6 +47,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       _accounts = await AccountsRepository(api).listAll();
       _transactions = await TransactionsRepository(api).listAll();
       _transfers = await TransfersRepository(api).listAll();
+      _currentUser = await UsersRepository(api).getCurrentUser();
 
       _saldoTotal = _accounts.fold(0.0, (sum, a) => sum + a.saldoAtual);
       _receitaTotal = _transactions
@@ -55,6 +63,62 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
   void _logout() {
     ApiClient().clearToken();
     Navigator.of(context).pushReplacementNamed('/login');
+  }
+
+  Widget _buildProfileAvatar() {
+    final imageBase64 = _currentUser?.profileImageBase64;
+    final userName = _currentUser?.nome ?? _currentUser?.email ?? 'U';
+    final initial = userName.isNotEmpty ? userName[0].toUpperCase() : 'U';
+
+    if (imageBase64 != null && imageBase64.isNotEmpty) {
+      try {
+        // Remove o prefixo data:image/...;base64, se existir
+        final base64String = imageBase64.contains(',')
+            ? imageBase64.split(',')[1]
+            : imageBase64;
+        
+        final bytes = base64Decode(base64String);
+        return Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.blue.shade700, width: 2),
+          ),
+          child: ClipOval(
+            child: Image.memory(
+              bytes,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => _buildDefaultAvatar(initial),
+            ),
+          ),
+        );
+      } catch (_) {
+        return _buildDefaultAvatar(initial);
+      }
+    }
+    return _buildDefaultAvatar(initial);
+  }
+
+  Widget _buildDefaultAvatar(String initial) {
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        color: Colors.blue.shade700,
+        shape: BoxShape.circle,
+      ),
+      child: Center(
+        child: Text(
+          initial,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -144,6 +208,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           _buildMenuItem(2, Icons.category, 'Categorias'),
           _buildMenuItem(3, Icons.receipt_long, 'Transacoes'),
           _buildMenuItem(4, Icons.swap_horiz, 'Transferencias'),
+          const Divider(color: Colors.white24, height: 32),
+          _buildMenuItem(5, Icons.person, 'Meu Perfil'),
+          if (_isAdmin) _buildMenuItem(6, Icons.admin_panel_settings, 'Admin'),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(12),
@@ -191,6 +258,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             Navigator.pushNamed(context, '/transactions');
           } else if (index == 4) {
             Navigator.pushNamed(context, '/transfers');
+          } else if (index == 5) {
+            Navigator.pushNamed(context, '/profile');
+          } else if (index == 6) {
+            Navigator.pushNamed(context, '/admin');
           }
         },
         borderRadius: BorderRadius.circular(8),
@@ -259,19 +330,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
             ),
           ),
           const SizedBox(width: 8),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.blue.shade700,
-              shape: BoxShape.circle,
-            ),
-            child: const Text(
-              'U',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/profile'),
+            child: _buildProfileAvatar(),
           ),
         ],
       ),

@@ -24,4 +24,10 @@ class TransfersRepository {
 	Future<void> delete(int id) async {
 		await api.delete('/transfers/$id');
 	}
+
+	// Método admin
+	Future<List<Transfer>> listAllAdmin() async {
+		final data = await api.get('/transfers/admin/all') as List<dynamic>;
+		return data.map((e) => Transfer.fromJson(e as Map<String, dynamic>)).toList();
+	}
 }

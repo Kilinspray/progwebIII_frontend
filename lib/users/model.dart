@@ -29,7 +29,7 @@ class User {
 		required this.email,
 		required this.nome,
 		required this.moeda,
-		this.profileImageUrl,
+		this.profileImageBase64,
 		required this.role,
 	});
 
@@ -37,7 +37,7 @@ class User {
 	final String email;
 	final String? nome;
 	final CurrencyType moeda;
-	final String? profileImageUrl;
+	final String? profileImageBase64;
 	final Role role;
 
 	factory User.fromJson(Map<String, dynamic> json) {
@@ -46,7 +46,7 @@ class User {
 			email: json['email'] as String,
 			nome: json['nome'] as String?,
 			moeda: CurrencyType.fromApi(json['moeda'] as String),
-			profileImageUrl: json['profile_image_url'] as String?,
+			profileImageBase64: json['profile_image_base64'] as String?,
 			role: Role.fromJson(json['role'] as Map<String, dynamic>),
 		);
 	}
@@ -57,7 +57,7 @@ class User {
 			'email': email,
 			'nome': nome,
 			'moeda': moeda.apiValue,
-			'profile_image_url': profileImageUrl,
+			'profile_image_base64': profileImageBase64,
 			'role': role.toJson(),
 		};
 	}
@@ -69,7 +69,7 @@ class UserCreate {
 		required this.password,
 		this.nome,
 		this.moeda = CurrencyType.brl,
-		this.profileImageUrl,
+		this.profileImageBase64,
 		required this.roleId,
 	});
 
@@ -77,7 +77,7 @@ class UserCreate {
 	final String password;
 	final String? nome;
 	final CurrencyType moeda;
-	final String? profileImageUrl;
+	final String? profileImageBase64;
 	final int roleId;
 
 	Map<String, dynamic> toJson() {
@@ -86,7 +86,7 @@ class UserCreate {
 			'password': password,
 			'nome': nome,
 			'moeda': moeda.apiValue,
-			'profile_image_url': profileImageUrl,
+			'profile_image_base64': profileImageBase64,
 			'role_id': roleId,
 		};
 	}
@@ -96,18 +96,18 @@ class UserUpdate {
 	const UserUpdate({
 		this.nome,
 		this.moeda,
-		this.profileImageUrl,
+		this.profileImageBase64,
 	});
 
 	final String? nome;
 	final CurrencyType? moeda;
-	final String? profileImageUrl;
+	final String? profileImageBase64;
 
 	Map<String, dynamic> toJson() {
 		return {
 			if (nome != null) 'nome': nome,
 			if (moeda != null) 'moeda': moeda!.apiValue,
-			if (profileImageUrl != null) 'profile_image_url': profileImageUrl,
+			if (profileImageBase64 != null) 'profile_image_base64': profileImageBase64,
 		};
 	}
 }
