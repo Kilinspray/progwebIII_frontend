@@ -19,7 +19,7 @@ class ApiClient {
   
   ApiClient._internal() : _http = http.Client();
 
-  static const String baseUrl = 'http://localhost:8000';
+  static const String baseUrl = 'https://we3-backend.onrender.com';
   final http.Client _http;
   String? accessToken;
 
