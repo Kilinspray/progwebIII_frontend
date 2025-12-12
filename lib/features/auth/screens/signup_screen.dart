@@ -33,7 +33,7 @@ class _SignupScreenState extends State<SignupScreen> {
         email: _email.text.trim(),
         password: _password.text,
         nome: _name.text.isEmpty ? null : _name.text.trim(),
-        roleId: 1, // 1 = user, 2 = admin
+        roleId: 2, // 1 = admin, 2 = user
       );
       await usersRepo.create(payload);
       if (!mounted) return;
