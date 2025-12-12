@@ -1,0 +1,59 @@
+# ====================
+# Git
+# ====================
+.git
+.gitignore
+
+# ====================
+# IDE / Editor
+# ====================
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# ====================
+# Flutter build artifacts (we rebuild inside Docker)
+# ====================
+build/
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+
+# ====================
+# Platform folders (not needed for web build)
+# ====================
+android/
+ios/
+macos/
+windows/
+linux/
+
+# ====================
+# Test / Coverage
+# ====================
+test/
+coverage/
+
+# ====================
+# Docs
+# ====================
+doc/
+*.md
+!README.md
+
+# ====================
+# Environment / Secrets
+# ====================
+.env
+.env.*
+*.env
+
+# ====================
+# Misc
+# ====================
+*.log
+.DS_Store
+Thumbs.db
